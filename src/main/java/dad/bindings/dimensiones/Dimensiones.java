@@ -30,16 +30,21 @@ public class Dimensiones extends Application {
 		
 		Scene scene = new Scene(root, 320, 200);
 		
+		// Primero cargarmos nuestras property
 		DoubleProperty xSize = new SimpleDoubleProperty(scene.getWidth());
 		DoubleProperty ySize = new SimpleDoubleProperty(scene.getHeight());
 		
+		// Ahora las enlazamos con el scene, de manera que se adaptan a cualquier cambio
 		xSize.bind(scene.widthProperty());
 		ySize.bind(scene.heightProperty());
-		xLabel.textProperty().bind(Bindings.concat("X: ", Bindings.convert(xSize)));
-		yLabel.textProperty().bind(Bindings.concat("Y: ", Bindings.convert(ySize)));
 		
+		// El label nos muestra el resultado en formato texto
+		xLabel.textProperty().bind(Bindings.concat("DimX: ", xSize));
+		yLabel.textProperty().bind(Bindings.concat("DimY: ", ySize));
+		
+		// Lo mismo con el área, sólo que con la multiplicación de uno con otro
 		DoubleBinding area = xSize.multiply(ySize);
-		areaLabel.textProperty().bind(Bindings.concat("Area: ", Bindings.convert(area)));
+		areaLabel.textProperty().bind(Bindings.concat("Area: ", area)); // Cada vez que cambie el area, cambia el texto
 		
 		primaryStage.setTitle("Bindings con dimensiones");
 		primaryStage.setScene(scene);
